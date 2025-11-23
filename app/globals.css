@@ -120,3 +120,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+Header {
+  position: sticky;
+  display: grid;
+  top: 0;
+  background-color: light-dark(#1a1a2a, white);
+}
