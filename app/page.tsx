@@ -6,7 +6,9 @@ export default function Home() {
         <>
             <Header />
             <main>
-                <Textarea />
+                <div id="inputcontainer">
+                    <Textarea className="centered" hidden={false} />
+                </div>
             </main>
         </>
     );
