@@ -1,3 +1,4 @@
+/* #region tailwind */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -120,41 +121,122 @@
         @apply bg-background text-foreground;
     }
 }
+/* #endregion */
+:root{
+    --header-height: 3em;
+    --query_box-height: 52px;
+}
 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+/* #region header */
 header {
-    --header-width: 3em;
-
     position: sticky;
     top: 0;
-    background-color: light-dark(#1a1a2a, white);
-    /*background-color: red;*/
+    z-index: 1;
 
-    border-bottom: solid;
-    border-color: var(--border);
-    border-width: 0 0 2px;
+    background-color: var(--background);
 
-    font-size: calc(var(--header-width) * 2 / 3);
+    border-bottom: 2px  solid var(--border);
+
+    font-size: calc(var(--header-height) * 3 / 5);
 }
 
 header > span {
+    margin: 0.2em;
     display: flex;
+    height: fit-content;
 }
 
-header > span > * {
-    margin-inline: 1rem;
+nav > a {
+    padding-inline: 0.5em;
+    padding-bottom: 0.25em;
+    border-radius: 1em;
+
+    position: relative;
+    bottom: 3px;
+}
+
+nav > a:hover {
+    background-color: var(--sidebar);
+    outline: 2px solid var(--foreground);
+}
+
+nav > a:focus {
+    background-color: var(--sidebar);
+    outline: 2px solid var(--foreground);
+}
+
+nav > a:active {
+    background-color: var(--accent);
+    outline: 2px solid var(--foreground);
+}
+/* #endregion */
+#response {
+    display: grid;
+    grid-template-areas:
+        "origin stats"
+        "sources message";
+    width: 100%;
+    height: calc(100vh - var(--header-height) - var(--query_box-height));
+    overflow-y: auto;
+}
+
+#response > div {
+    margin: 0.5em;
+}
+
+#request {
+    position: fixed;
+    bottom: 2.5rem;
+}
+
+#main-content {
+    padding: 0.5em;
+}
+
+#query {
+    max-height: var(--query_box-height);
+    border-radius: calc(var(--query_box-height) * 0.4);
+    margin-inline: 5px;
+
+    position: relative;
+    right: 5px;
+    z-index: 1;
+}
+
+#disclaimer {
+    margin-top: 0.5em;
+    text-align: center;
 }
 
 .centered {
-    max-width: 100vh;
+    width: fit-content;
+    margin: 0 auto 0 auto;
+}
+
+.align-bottom { /* TODO: fix */
+    vertical-align: bottom;
+}
+
+.content {
+    width: calc(min(100vh, 100vw));
     margin-inline: auto;
 }
 
+/* debug */
 div, span, header, main {
-    --borders-shown: 1;
+    outline-width: 0px;
+    outline-style: solid;
+    outline-color: red;
+}
 
-    border-color: red;
-    border-width: if(
-        style(--borders-shown: 1): 1px;
-        else: 0;
-    );
+* {
+    outline-width: 0px;
+    outline-style: solid;
+    outline-color: red;
 }
