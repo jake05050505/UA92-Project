@@ -125,6 +125,7 @@
 :root{
     --header-height: 3em;
     --query_box-height: 52px;
+    --debug-outline: 1px;
 }
 
 body {
@@ -139,36 +140,35 @@ header {
     top: 0;
     z-index: 1;
 
-    background-color: var(--background);
-
     border-bottom: 2px  solid var(--border);
 
-    font-size: calc(var(--header-height) * 3 / 5);
+    background-color: var(--background);
+
+    font-size: calc(var(--header-height) * 1 / 2);
 }
 
 header > span {
     margin: 0.2em;
     display: flex;
-    height: fit-content;
+    height: auto;
+}
+
+nav {
+    width: 100%;
+    padding: 0.25em;
 }
 
 nav > a {
     padding-inline: 0.5em;
-    padding-bottom: 0.25em;
-    border-radius: 1em;
-
-    position: relative;
-    bottom: 3px;
+    border-radius: var(--radius);
+    margin-right: 0.5em;
+    white-space: nowrap;
 }
 
-nav > a:hover {
-    background-color: var(--sidebar);
-    outline: 2px solid var(--foreground);
-}
-
+nav > a:hover,
 nav > a:focus {
     background-color: var(--sidebar);
-    outline: 2px solid var(--foreground);
+    outline: 2px solid var(--muted-foreground);
 }
 
 nav > a:active {
@@ -176,51 +176,52 @@ nav > a:active {
     outline: 2px solid var(--foreground);
 }
 /* #endregion */
+/* #region main */
 #response {
     display: grid;
+    gap: 0.5em;
+    padding: 0.25em;
     grid-template-areas:
         "origin stats"
         "sources message";
     width: 100%;
-    height: calc(100vh - var(--header-height) - var(--query_box-height));
+    height: calc(100vh - var(--header-height) - var(--query_box-height) - 5em);
     overflow-y: auto;
 }
 
 #response > div {
-    margin: 0.5em;
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
 }
 
 #request {
-    position: fixed;
-    bottom: 2.5rem;
-}
-
-#main-content {
-    padding: 0.5em;
+    /* position: fixed; */
+    /* bottom: 10em; */
+    width: 100%;
+    padding: 0.25em;
 }
 
 #query {
+    max-width: calc(min(100vh,100vw)-0.5em) !important;
     max-height: var(--query_box-height);
-    border-radius: calc(var(--query_box-height) * 0.4);
-    margin-inline: 5px;
+    /* border-radius: calc(var(--query_box-height) * 0.4); */
+    border-radius: var(--radius);
+    margin-inline: 0.25em;
+    font-size: 1em;
 
     position: relative;
-    right: 5px;
+    right: 0.25em;
     z-index: 1;
 }
 
 #disclaimer {
-    margin-top: 0.5em;
     text-align: center;
 }
-
+/* #endregion */
+/* #region classes */
 .centered {
     width: fit-content;
     margin: 0 auto 0 auto;
-}
-
-.align-bottom { /* TODO: fix */
-    vertical-align: bottom;
 }
 
 .content {
@@ -228,15 +229,20 @@ nav > a:active {
     margin-inline: auto;
 }
 
-/* debug */
+.nowrap {
+    white-space: nowrap;
+}
+/* #endregion */
+/* #region debug */
 div, span, header, main {
-    outline-width: 0px;
+    outline-width: max(0px, var(--debug-outline));
     outline-style: solid;
     outline-color: red;
 }
 
 * {
-    outline-width: 0px;
+    outline-width: max(0px, var(--debug-outline));
     outline-style: solid;
     outline-color: red;
 }
+/* #endregion */

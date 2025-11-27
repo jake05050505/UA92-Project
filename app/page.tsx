@@ -35,7 +35,7 @@ export default function Home() {
                         <div className="sources"></div>
                         <div className="message"></div>
                     </div>
-                    <div id="request" className="content centered">
+                    <div id="request" className="centered content">
                         <Textarea
                             id="query"
                             placeholder={placeholder_text}
