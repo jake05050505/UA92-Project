@@ -30,10 +30,10 @@ export default function Home() {
             <main>
                 <div id="main-content" className="content">
                     <div id="response">
-                        <div className="origin"></div>
-                        <div className="stats"></div>
-                        <div className="sources"></div>
-                        <div className="message"></div>
+                        <div id="origin"></div>
+                        <div id="stats"></div>
+                        <div id="sources"></div>
+                        <div id="message"></div>
                     </div>
                     <div id="request" className="centered content">
                         <Textarea

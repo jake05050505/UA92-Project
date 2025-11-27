@@ -125,7 +125,6 @@
 :root{
     --header-height: 3em;
     --query_box-height: 52px;
-    --debug-outline: 1px;
 }
 
 body {
@@ -163,6 +162,8 @@ nav > a {
     border-radius: var(--radius);
     margin-right: 0.5em;
     white-space: nowrap;
+
+    display: inline-block;
 }
 
 nav > a:hover,
@@ -204,7 +205,6 @@ nav > a:active {
 #query {
     max-width: calc(min(100vh,100vw)-0.5em) !important;
     max-height: var(--query_box-height);
-    /* border-radius: calc(var(--query_box-height) * 0.4); */
     border-radius: var(--radius);
     margin-inline: 0.25em;
     font-size: 1em;
@@ -234,6 +234,10 @@ nav > a:active {
 }
 /* #endregion */
 /* #region debug */
+:root {
+    --debug-outline: 0px;
+}
+
 div, span, header, main {
     outline-width: max(0px, var(--debug-outline));
     outline-style: solid;
