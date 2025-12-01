@@ -135,10 +135,6 @@ body {
 }
 /* #region header */
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-
     border-bottom: 2px  solid var(--border);
 
     background-color: var(--background);
@@ -178,6 +174,10 @@ nav > a:active {
 }
 /* #endregion */
 /* #region main */
+main {
+    height: 100%;
+}
+
 #response {
     display: grid;
     gap: 0.5em;
@@ -185,6 +185,11 @@ nav > a:active {
     width: 100%;
     height: calc(100vh - var(--header-height) - var(--query_box-height) - 5em);
     overflow-y: auto;
+}
+
+#response > div {
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--border);
 }
 
 @media screen and (orientation: landscape){
@@ -202,12 +207,8 @@ nav > a:active {
             "sources"
             "message"
             "message";
+        overflow-y: scroll;
     }
-}
-
-#response > div {
-    border-radius: var(--radius-2xl);
-    border: 2px solid var(--border);
 }
 
 #message {
@@ -215,29 +216,21 @@ nav > a:active {
 }
 
 #sources {
-    grid-area: "sources";
+    grid-area: sources;
 }
 
 #stats {
-    grid-area: "stats";
+    grid-area: stats;
 }
 
 #request {
-    /* position: fixed; */
-    /* bottom: 10em; */
     width: 100%;
     padding: 0.25em;
 }
 
 #query {
-    max-width: calc(min(100vh,100vw)-0.5em) !important;
     max-height: var(--query_box-height);
     border-radius: var(--radius-2xl);
-    margin-inline: 0.25em;
-    font-size: 1em;
-
-    position: relative;
-    right: 0.25em;
     z-index: 1;
 }
 
@@ -248,16 +241,12 @@ nav > a:active {
 /* #region classes */
 .centered {
     width: fit-content;
-    margin: 0 auto 0 auto;
+    margin: auto;
 }
 
 .content {
     width: calc(min(100vh, 100vw));
     margin-inline: auto;
-}
-
-.nowrap {
-    white-space: nowrap;
 }
 /* #endregion */
 /* #region debug */
@@ -266,7 +255,7 @@ nav > a:active {
 }
 
 div, span, header, main {
-    outline-width: max(0px, var(--debug-outline));
+    outline-width: max(1px, var(--debug-outline));
     outline-style: solid;
     outline-color: red;
 }

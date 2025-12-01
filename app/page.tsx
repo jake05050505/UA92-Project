@@ -41,9 +41,9 @@ export default function Home() {
                             className="resize-none"
                             hidden={false}
                         />
-                    </div>
-                    <div id="disclaimer">
-                        <p>Built with Next.js, uses ChatGPT; AI can make mistakes, double-check important info.</p>
+                        <div id="disclaimer">
+                            <p>Built with Next.js, uses ChatGPT; AI can make mistakes, double-check important info.</p>
+                        </div>
                     </div>
                 </div>
             </main>
