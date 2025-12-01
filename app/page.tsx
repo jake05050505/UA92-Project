@@ -30,7 +30,6 @@ export default function Home() {
             <main>
                 <div id="main-content" className="content">
                     <div id="response">
-                        <div id="origin"></div>
                         <div id="stats"></div>
                         <div id="sources"></div>
                         <div id="message"></div>
