@@ -130,7 +130,6 @@
 
 html, body {
     height: 100%;
-    overflow-y: hidden;
 }
 
 body {
@@ -191,6 +190,7 @@ main, #main-content {
 
 #response {
     display: grid;
+    min-height: 0;
     gap: 0.5em;
     padding: 0.25em;
     flex: auto;
@@ -205,24 +205,27 @@ main, #main-content {
 #response > div {
     border-radius: var(--radius-2xl);
     border: 2px solid var(--border);
+    min-height: 0;
 }
 
 @media screen and (orientation: landscape){
     #response{
         grid-template-areas:
-            "message message stats"
-            "message message sources";
+            "message message extra"
+            "message message extra";
+        grid-template-columns: auto auto 33%;
         overflow-y: hidden;
     }
+
     #header {
-        font-size: 2.4em;
+        font-size: 2em;
     }
 }
 
 @media screen and (orientation: portrait){
     #response{
         grid-template-areas:
-            "sources stats"
+            "extra extra"
             "message message"
             "message message";
         overflow-y: scroll;
@@ -234,17 +237,15 @@ main, #main-content {
 
 #message {
     grid-area: message;
+    min-height: 0;
+    overflow-y: scroll;
+    padding: 0.25em 1em;
+    text-align: justify;
 }
 
-#sources {
-    grid-area: sources;
+#extra {
+    grid-area: extra;
 }
-
-#stats {
-    grid-area: stats;
-}
-
-
 
 #query {
     border-radius: var(--radius-2xl);
