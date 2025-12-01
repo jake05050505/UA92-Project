@@ -127,11 +127,14 @@
     --query_box-height: 52px;
 }
 
+html, body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
 body {
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;
 }
 /* #region header */
 header {
@@ -179,12 +182,10 @@ main {
 }
 
 #response {
-    display: grid;
     gap: 0.5em;
     padding: 0.25em;
     width: 100%;
-    height: calc(100vh - var(--header-height) - var(--query_box-height) - 5em);
-    overflow-y: auto;
+    height: 100%;
 }
 
 #response > div {
@@ -197,6 +198,13 @@ main {
         grid-template-areas:
             "message message stats"
             "message message sources";
+        display: grid;
+    }
+    #stats, #sources {
+        max-width: 34%;
+    }
+    #message {
+        max-width: 66%;
     }
 }
 
@@ -208,6 +216,7 @@ main {
             "message"
             "message";
         overflow-y: scroll;
+
     }
 }
 
@@ -229,7 +238,6 @@ main {
 }
 
 #query {
-    max-height: var(--query_box-height);
     border-radius: var(--radius-2xl);
     z-index: 1;
 }
