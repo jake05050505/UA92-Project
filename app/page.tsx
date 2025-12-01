@@ -32,7 +32,11 @@ export default function Home() {
                     <div id="response">
                         <div id="stats"></div>
                         <div id="sources"></div>
-                        <div id="message"><p>{lorem_ipsum}</p></div>
+                        <div id="message">
+                            <p>
+                            {/* {lorem_ipsum} */}
+                            </p>
+                        </div>
                     </div>
                     <div id="request" className="centered content">
                         <Textarea
