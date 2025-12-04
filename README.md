@@ -1,3 +1,6 @@
+# TODO: README.md
+## The below is the default next.js README.md file, this will be changed when the project is nearly complete.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
