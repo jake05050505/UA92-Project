@@ -1,0 +1,167 @@
+/* #region base */
+:root{
+    --header-height: 3em;
+    --query_box-height: 52px;
+}
+/* #endregion */
+/* #region header */
+header {
+    border-bottom: 2px solid var(--border);
+
+    flex: none;
+}
+
+header > span {
+    margin: 0.2rem;
+    display: flex;
+    height: auto;
+}
+
+nav {
+    width: 100%;
+    padding: 0.25rem;
+}
+
+nav > a {
+    padding-inline: 0.5rem;
+    border-radius: var(--radius-2xl);
+    margin-right: 0.5em;
+    white-space: nowrap;
+
+    display: inline-block;
+}
+
+nav > a:hover,
+nav > a:focus {
+    background-color: var(--sidebar);
+    outline: 2px solid var(--muted-foreground);
+}
+
+nav > a:active {
+    background-color: var(--accent);
+    outline: 2px solid var(--foreground);
+}
+/* #endregion */
+/* #region main */
+main, #main-content {
+    height: 100%;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+#response {
+    display: grid;
+    min-height: 0;
+    gap: 0.5em;
+    padding: 0.25em;
+    flex: auto;
+}
+
+#request {
+    padding: 0.25em;
+    height: auto;
+    flex: none;
+}
+
+#response > div {
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--border);
+    min-height: 0;
+}
+
+@media screen and (orientation: landscape){
+    #response{
+        grid-template-areas:
+            "message message extra"
+            "message message extra";
+        grid-template-columns: auto auto 33%;
+        overflow-y: hidden;
+    }
+
+    #header {
+        font-size: 2em;
+    }
+}
+
+@media screen and (orientation: portrait){
+    #response{
+        grid-template-areas:
+            "extra extra"
+            "message message"
+            "message message";
+        overflow-y: scroll;
+    }
+    #header {
+        font-size: 1.4em;
+    }
+}
+
+#message {
+    grid-area: message;
+    min-height: 0;
+    overflow-y: scroll;
+    padding: 0.25em 1em;
+    text-align: justify;
+}
+
+#extra {
+    grid-area: extra;
+}
+
+#query {
+    border-radius: var(--radius-2xl);
+}
+
+#disclaimer {
+    text-align: center;
+}
+/* #endregion */
+/* #region about */
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+/* #endregion */
+/* #region classes */
+.centered {
+    width: fit-content;
+    margin: auto;
+}
+
+.content {
+    width: calc(min(100vh, 100vw));
+    margin-inline: auto;
+}
+/* #endregion */
+/* #region debug */
+:root {
+    --debug-outline: 0px;
+}
+
+div, span, header, main {
+    outline-width: max(0px, var(--debug-outline));
+    outline-style: solid;
+    outline-color: red;
+}
+
+* {
+    outline-width: max(0px, var(--debug-outline));
+    outline-style: solid;
+    outline-color: red;
+}
+/* #endregion */

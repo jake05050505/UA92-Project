@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-gb" class="dark h-full">
+    <head>
+        <title>Credibility Analysis tool: Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/tailwind.css">
+
+        <script>
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 3000);
+        </script>
+    </head>
+
+    <body class="flex flex-col h-full">
+        <%- include("partials/header.ejs") %>
+
+        <main>
+            <div id="main-content" class="content">
+
+                <div id="response">
+                    <div id="message">
+                        <p>
+
+                        </p>
+                    </div>
+                    <div id="extra">
+
+                    </div>
+                </div>
+
+                <div id="request" class="centered content">
+                INPUT HERE
+                    <div id="disclaimer">
+                        <p>Built with Express.js, uses ChatGPT; AI can make mistakes, double-check important info.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </body>
+</html>

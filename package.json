@@ -1,6 +1,35 @@
 {
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Information credibility analysis tool to combat misinformation",
+  "homepage": "https://github.com/jake05050505/UA92-Project#readme",
+  "bugs": {
+    "url": "https://github.com/jake05050505/UA92-Project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jake05050505/UA92-Project.git"
+  },
+  "license": "ISC",
+  "author": "jake05050505",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./static/css/tailwind.css"
+  },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "cross-env": "^10.1.0",
     "ejs": "^3.1.10",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.22",
+    "nodemon": "^3.1.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
   }
 }
