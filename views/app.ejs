@@ -10,17 +10,17 @@
         <script>
             setTimeout(function(){
                 window.location.reload(1);
-            }, 3000);
+            }, 3*1000);
         </script>
     </head>
 
     <body class="flex flex-col h-full">
         <%- include("partials/header.ejs") %>
 
-        <main>
-            <div id="main-content" class="content">
+        <main class="h-full">
+            <div id="main-content" class="content h-full flex flex-col">
 
-                <div id="response">
+                <div id="response" class="grid min-h-0 gap-2 p-1 flex-auto pb-0">
                     <div id="message">
                         <p>
 
@@ -31,14 +31,19 @@
                     </div>
                 </div>
 
-                <div id="request" class="centered content">
-                INPUT HERE
-                    <div id="disclaimer">
-                        <p>Built with Express.js, uses ChatGPT; AI can make mistakes, double-check important info.</p>
-                    </div>
+                <div id="request" class="centered content flex-none h-auto min-h-24 w-full p-1">
+                    <form name="query" action="/" method="POST">
+                        <input type="text" name="chat_message" id="chat_message" class="border-2 rounded-2xl w-full min-h-12">
+                    </form>
                 </div>
 
             </div>
         </main>
+
+        <footer class="border-accent border-t-2 h-auto w-full">
+            <div class="py-3 text-center" id="disclaimer">
+                <p>Built with Express.js, uses ChatGPT; AI can make mistakes, double-check important info.</p>
+            </div>
+        </footer>
     </body>
 </html>

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@source inline("{bg,text,border}-slate-{50,100,200,300,400,500,600,700,800,900,950}"); /* for editor autocomplete, remove after development */
+@source inline("{bg,text,border}-slate-{50,100,200,300,400,500,600,700,800,900,950}"); 
+/* for editor autocomplete, remove after development */
 
 /* @custom-variant dark (&:is(.dark *)); */
 
@@ -120,7 +121,7 @@
     body {
         @apply bg-background dark:bg-slate-950 text-foreground dark:text-white;
     }
-    header {
+    header, footer {
         @apply bg-neutral-200 dark:bg-slate-900;
     }
 }

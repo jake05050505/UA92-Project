@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 
+
 const devMode = process.env.NODE_ENV !== "production";
 
 renderChatInterface = (req, res) => {
