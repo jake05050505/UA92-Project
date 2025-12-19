@@ -22,6 +22,9 @@
 
                 <div id="response" class="grid min-h-0 gap-2 p-1 flex-auto pb-0">
                     <div id="message">
+                        <div id="controls">
+                            <a href="/clear">Clear Chat</a>
+                        </div>
                         <% if (typeof(chatResponse) !== "undefined") { %>
                             <p>
                                 <%= chatResponse %>
@@ -36,7 +39,7 @@
                 <div id="request" class="centered content flex-none h-auto min-h-24 w-full p-1">
                     <form name="query" action="/" method="POST">
                         <input type="text" name="chatMessage" id="chatMessage" class="border-2 rounded-2xl w-full min-h-12">
-                        <button type="submit"></button>
+                        <button type="submit" class="hidden"></button>
                     </form>
                 </div>
 
