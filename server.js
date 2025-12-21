@@ -49,7 +49,6 @@ app.get("/", (req, res) => {
         return res.render("app", { dev_mode, placeholder_text, message, statistics });
     }
     else {
-        console.log(`gpt_output = undefined`)
         return res.render("app", { dev_mode, placeholder_text });
     }
 });
@@ -83,7 +82,7 @@ app.post("/", (req, res) => {
         input: [
             {
                 role: "system",
-                content: `You are a credibility analysis agent.
+                content: `You are a credibility analysis engine.
 
                 Your objective is to analyze a claim or answer a question from both a supportive and critical perspective.
 
@@ -98,10 +97,14 @@ app.post("/", (req, res) => {
                     - If there isn't enough information, return -1.0.
 
                 Rules:
+                - Treat statements as unproven claims. Do not assume them to be true; Analyze and report consensus accordingly.
                 - Only use web search when you don't have enough information, and when the information is likely to be available online.
                 - Collect atleast 5 sources which agree, and 5 sources which disagree. If fewer than 5 sources are available, note this in the message.
                 - Do not include citation markers, reference IDs, or source tokens in your output.
-                - Only respond with what has been explained to you here.`
+                - Remove all internal reference tokens. Only include human-readable summaries and URLs.
+                - Do not ask follow-up questions.
+                - Do not offer to perform additional tasks.
+                - Do not provide instructions to verify information; Provide the verified information yourself if possible.`
             },
             {
                 role: "user",
