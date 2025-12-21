@@ -1,39 +1,13 @@
-/* #region base */
-:root{
-    --header-height: 3em;
-    --query_box-height: 52px;
-}
-/* #endregion */
-/* #region header */
-nav > a {
-    padding-inline: 0.5rem;
-    border-radius: var(--radius-2xl);
-    margin-right: 0.5em;
-    white-space: nowrap;
-
-    display: inline-block;
-}
-
-nav > a:hover,
-nav > a:focus {
-    background-color: var(--sidebar);
-    outline: 2px solid var(--muted-foreground);
-}
-
-nav > a:active {
-    background-color: var(--accent);
-    outline: 2px solid var(--foreground);
-}
-/* #endregion */
 /* #region main */
-#main-content {
-    flex: 1 1 auto;
+@media screen and (max-height: 1044px) {
+    #response {
+        min-height: 86.125%;
+    }
 }
-
-#response > div {
-    border-radius: var(--radius-2xl);
-    border: 2px solid var(--border);
-    min-height: 0;
+@media screen and (max-height: 756px) {
+    #response {
+        min-height: 80%;
+    }
 }
 
 @media screen and (orientation: landscape){
@@ -42,11 +16,10 @@ nav > a:active {
             "message message extra"
             "message message extra";
         grid-template-columns: auto auto 33%;
-        overflow-y: hidden;
     }
 
     #header {
-        font-size: 2em;
+        font-size: var(--text-3xl);
     }
 }
 
@@ -56,43 +29,22 @@ nav > a:active {
             "extra extra"
             "message message"
             "message message";
-        overflow-y: scroll;
     }
     #header {
         font-size: 1.4em;
     }
 }
 
-#message {
+#message-box {
     grid-area: message;
     min-height: 0;
-    overflow-y: scroll;
-    padding: 0.25em 1em;
+    overflow-y: auto;
     text-align: justify;
 }
 
-#extra {
+#statistics {
     grid-area: extra;
 }
-/* #endregion */
-/* #region about */
-h1 {
-    font-size: var(--text-5xl);
-}
-
-h2 {
-    font-size: var(--text-4xl);
-}
-
-h3 {
-    font-size: var(--text-3xl);
-}
-
-h4 {
-    font-size: var(--text-2xl);
-}
-
-
 /* #endregion */
 /* #region classes */
 .centered {
@@ -103,6 +55,10 @@ h4 {
 .content {
     width: calc(min(100vh, 100vw));
     margin-inline: auto;
+}
+
+.container {
+    border: 2px solid var(--border);
 }
 /* #endregion */
 /* #region debug */
