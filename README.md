@@ -29,6 +29,7 @@ Now that the project is installed, you'll need to setup your API key.
 1. Open the cloned repository in your terminal.
 2. Enter the command `$ npm run start` to start the server.
 3. You should get an output saying: `Server running on http://localhost:3000`, go to this URL in your web browser.
+- To stop the server process, press CTRL+C `^C` in the terminal where you started the server.
 
 
 ## Drawbacks
