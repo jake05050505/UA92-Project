@@ -12,7 +12,23 @@ In the current version, this project uses the following technologies:
 - TailwindCSS
 - OpenAI ChatGPT (gpt-5-mini)
 
-### Installing
+## Setup
+### Installation
+- This project uses node.js. You can install node.js here: https://nodejs.org/
+1. Clone the repository into a directory of your choice.
+2. Open the cloned repository in your terminal.
+3. Enter the command `$ npm i` to install required dependencies.
+Now that the project is installed, you'll need to setup your API key.
+
+### Environment
+- First, you'll need an API key from OpenAI. You can do this by logging in with your OpenAI account at https://openai.com/api/, clicking the "Dashboard" link (top right), then API keys (sidebar, under Manage). Create a new API key (recommended) or use an existing one.
+1. In the `project/` folder, create a new file called `.env`.
+2. Open the `.env` file with your text editor, and add the line `OPENAI_API_KEY=`. Paste your API key after the equals sign. The file should look something like: `OPENAI_API_KEY=sk-proj-` and a long string of characters.
+
+### Running the server
+1. Open the cloned repository in your terminal.
+2. Enter the command `$ npm run start` to start the server.
+3. You should get an output saying: `Server running on http://localhost:3000`, go to this URL in your web browser.
 
 
 ## Drawbacks
