@@ -33,6 +33,11 @@
                                     <%= message %>
                                 </p>
                             <% } %>
+                            <% if (typeof error !== "undefined" ) { %>
+                                <p class="text-red-500">
+                                    <%= error %>
+                                </p>
+                            <% } %>
                         </div>
                     </div>
 
@@ -50,6 +55,7 @@
                                         <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                                             <%= source %>
                                         </a>
+                                        <br>
                                     <% } %>
 
                                 </details>
@@ -69,6 +75,7 @@
                                         <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                                             <%= source %>
                                         </a>
+                                        <br>
                                     <% } %>
 
                                 </details>
@@ -95,13 +102,15 @@
 
                 <div id="request" class="content h-auto w-full p-1">
                     <form name="query" action="/" method="POST">
-                        <input type="text" name="chatMessage" id="chatMessage" maxlength="300"
-                            placeholder="<%= placeholder_text %>"
-                            class="container w-full min-h-24 py-1 px-4 mb-0 rounded-b-3xl rounded-t-md"></input>
+                        <input type="text" name="chat_message" id="chat_message" maxlength="300"
+                            <% if (typeof placeholder_text !== "undefined") { %>
+                                placeholder="<%= placeholder_text %>"
+                            <% } %>
+                            class="container w-full min-h-24 py-1 px-4 mb-0 rounded-b-3xl rounded-t-md" />
                         <span id="prompt_length" class="min-h-4 pl-4 mt-0">&ThickSpace;</span>
                         <button type="submit" class="hidden"></button>
                         <script>
-                            const input = document.getElementById("chatMessage");
+                            const input = document.getElementById("chat_message");
                             const prompt_length = document.getElementById("prompt_length");
 
                             input.addEventListener("input", () => {

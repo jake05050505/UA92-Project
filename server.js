@@ -28,9 +28,7 @@ app.use(session({
 
 const dev_mode = process.env.NODE_ENV !== "production";
 
-
 //#region GET
-
 app.get("/", (req, res) => {
     console.log("Incoming GET request on \'/\'");
 
@@ -43,10 +41,9 @@ app.get("/", (req, res) => {
     ];
     const placeholder_text = placeholder_texts_array[crypto.randomInt(placeholder_texts_array.length)];
 
-    const { gpt_output } = req.session;
-    if (typeof gpt_output !== "undefined") {
-        const { message, statistics } = gpt_output;
-        return res.render("app", { dev_mode, placeholder_text, message, statistics });
+    const { gpt_message, gpt_statistics } = req.session;
+    if (typeof gpt_message !== "undefined" && typeof gpt_statistics !== "undefined") {
+        return res.render("app", { dev_mode, placeholder_text, message: gpt_message, statistics: gpt_statistics });
     }
     else {
         return res.render("app", { dev_mode, placeholder_text });
@@ -62,16 +59,16 @@ app.get("/clear", (req, res) => {
 
 //#region post
 app.post("/", (req, res) => {
-    const user_query = req.body.chatMessage;
+    console.log("Incoming POST request on \'/\'");
 
-    console.log("Incoming POST request on \'/\'")
+    const user_query = req.body.chat_message;
 
-    console.log(user_query.split(' '), user_query.split(' ').length)
+    if (dev_mode){ console.log(user_query.split(' '), user_query.split(' ').length); }
 
     if (user_query.length > 300) {
-        return res.render("app", { placeholderText: "Your previous input was too long." });
+        return res.render("app", { error: "Your previous input was too long." });
     } else if (user_query.length < 2){
-        return res.render("app", { placeholderText: "Please provide a suitable input." });
+        return res.render("app", { error: "Please provide a suitable input." });
     }
 
     const gpt_response = client.responses.create({
@@ -79,7 +76,7 @@ app.post("/", (req, res) => {
         tools: [
             { type: "web_search", }
         ],
-        input: [
+        input: [ // ChatGPT was used to help refine system prompt.
             {
                 role: "system",
                 content: `You are a credibility analysis engine.
@@ -99,12 +96,14 @@ app.post("/", (req, res) => {
                 Rules:
                 - Treat statements as unproven claims. Do not assume them to be true; Analyze and report consensus accordingly.
                 - Only use web search when you don't have enough information, and when the information is likely to be available online.
-                - Collect atleast 5 sources which agree, and 5 sources which disagree. If fewer than 5 sources are available, note this in the message.
+                - Collect atleast 10 sources. If fewer than 10 sources are available, note this in the message.
+                - When calculating the consensus_level, weigh each source according to how credible/trust-worthy the source's website is.
                 - Do not include citation markers, reference IDs, or source tokens in your output.
                 - Remove all internal reference tokens. Only include human-readable summaries and URLs.
                 - Do not ask follow-up questions.
                 - Do not offer to perform additional tasks.
-                - Do not provide instructions to verify information; Provide the verified information yourself if possible.`
+                - Do not provide instructions to verify information; Provide the verified information yourself if possible.
+                - Some queries may be offensive, in your message, you should discourage this kind of behaviour.`
             },
             {
                 role: "user",
@@ -141,10 +140,13 @@ app.post("/", (req, res) => {
                 }
             }
         }
-    })
-    .then((gpt_response) => {
-        console.log(gpt_response)
-        req.session.gpt_output = JSON.parse(gpt_response.output_text);
+    }).then(gpt_response => {
+        if (dev_mode){ console.log(gpt_response); }
+
+        gpt_response = JSON.parse(gpt_response.output_text);
+        req.session.gpt_message = gpt_response.message;
+        req.session.gpt_statistics = gpt_response.statistics;
+
         return res.redirect("/");
     }).catch(err => {
         console.log(err);
