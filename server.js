@@ -102,7 +102,6 @@ app.post("/", (req, res) => {
 
                 Rules:
                 - Treat statements as unproven claims. Do not assume them to be true; Analyze and report consensus accordingly.
-                - Only use web search when you don't have enough information, and when the information is likely to be available online.
                 - Collect atleast 10 sources. If fewer than 10 sources are available, note this in the message.
                 - When calculating the consensus_level, weigh each source according to how credible/trust-worthy the source's website is.
                 - Do not include citation markers, reference IDs, or source tokens in your output.
