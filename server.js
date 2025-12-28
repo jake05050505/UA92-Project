@@ -9,7 +9,7 @@ dotenv.config();
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
-    console.log("No API key was found, this will prevent the main page from working.");
+    console.log("No API key was found, this will prevent the chat interface from working.");
 } else {
     client = new OpenAI();
 }
