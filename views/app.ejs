@@ -55,7 +55,7 @@
                                         </summary>
 
                                         <% for (let source of statistics.agreeing_sources) { %>
-                                            <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
+                                            <a target="_blank" href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                                                 <%= source %>
                                             </a>
                                             <br>
@@ -75,7 +75,7 @@
                                         </summary>
 
                                         <% for (let source of statistics.conflicting_sources) { %>
-                                            <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
+                                            <a target="_blank" href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                                                 <%= source %>
                                             </a>
                                             <br>
