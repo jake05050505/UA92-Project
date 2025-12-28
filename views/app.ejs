@@ -20,115 +20,119 @@
 
         <main class="h-full">
             <div id="main-content" class="content h-full flex flex-col flex-1">
-                <div id="response" class="grid min-h-0 gap-2 p-1 flex-none">
+                <% if (NO_API_KEY) { %>
+                    <h3 class="text-red-500">Please check your API Key configuration to use this app</h3>
+                    <h4 class="text-red-500">ERR: NO_API_KEY</h4>
+                    <p>See <a target="_blank" href="https://github.com/jake05050505/UA92-Project/blob/main/README.md#:~:text=Environment">README.md</a> for more information about setting up your OpenAI API key</p>
+                <% } else { %>
 
-                    <div id="message-box" class="container rounded-3xl rounded-b-md rounded-r-md">
-                        <div id="controls" class="border-b-2 border-border rounded-2xl p-2">
-                            <a class="text-xl px-2" href="/clear">Clear Chat</a>
-                        </div>
-
-                        <div id="message-contents" class="px-8 py-2">
-                            <% if (typeof message !== "undefined" ) { %>
-                                <p>
-                                    <%= message %>
-                                </p>
-                            <% } %>
-                            <% if (typeof error !== "undefined" ) { %>
-                                <p class="text-red-500">
-                                    <%= error %>
-                                </p>
-                            <% } %>
-                        </div>
-                    </div>
-
-                    <div id="statistics" class="container rounded-3xl rounded-b-md rounded-l-md">
-                        <% if (typeof statistics !== "undefined" ) { %>
-                            <div id="agree">
-                                <details>
-                                    <summary>
-                                        <h4>
-                                            Sources in agreement:
-                                        </h4>
-                                    </summary>
-
-                                    <% for (let source of statistics.agreeing_sources) { %>
-                                        <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
-                                            <%= source %>
-                                        </a>
-                                        <br>
-                                    <% } %>
-
-                                </details>
+                    <div id="response" class="grid min-h-0 gap-2 p-1 flex-none">
+                        <div id="message-box" class="container rounded-3xl rounded-b-md rounded-r-md">
+                            <div id="controls" class="border-b-2 border-border rounded-2xl p-2">
+                                <a class="text-xl px-2" href="/clear">Clear Chat</a>
                             </div>
-                            <br>
-                            <hr>
-                            <br>
-                            <div id="disagree">
-                                <details>
-                                    <summary>
-                                        <h4>
-                                            Conflicting sources:
-                                        </h4>
-                                    </summary>
-
-                                    <% for (let source of statistics.conflicting_sources) { %>
-                                        <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
-                                            <%= source %>
-                                        </a>
-                                        <br>
-                                    <% } %>
-
-                                </details>
-                            </div>
-                            <br>
-                            <hr>
-                            <br>
-                            <div id="consensus">
-                                <p>The general consensus for your claim/query is:</p>
-                                <% const consensus = statistics.consensus_level %>
-                                <% if ( consensus > 0.65 ) { %>
-                                    <p class="text-green-400 text-4xl">High: <%= consensus.toFixed(1) %></p>
-                                <% } else if (consensus > 0.35 ) { %>
-                                    <p class="text-yellow-400 text-4xl">Mixed: <%= consensus.toFixed(1) %></p>
-                                <% } else if (consensus <= 0.35 && consensus >= 0) { %>
-                                    <p class="text-red-500 text-4xl">Low: <%= consensus.toFixed(1) %></p>
-                                <% } else { %>
-                                    <p class="text-4xl" style="color: grey">Unclear</p>
+                            <div id="message-contents" class="px-8 py-2">
+                                <% if (typeof message !== "undefined" ) { %>
+                                    <p>
+                                        <%= message %>
+                                    </p>
+                                <% } %>
+                                <% if (typeof error !== "undefined" ) { %>
+                                    <p class="text-red-500">
+                                        <%= error %>
+                                    </p>
                                 <% } %>
                             </div>
-                        <% } %>
-                    </div>
-                </div>
+                        </div>
+                        <div id="statistics" class="container rounded-3xl rounded-b-md rounded-l-md">
+                            <% if (typeof statistics !== "undefined" ) { %>
+                                <div id="agree">
+                                    <details>
+                                        <summary>
+                                            <h4>
+                                                Sources in agreement:
+                                            </h4>
+                                        </summary>
 
-                <div id="request" class="content h-auto w-full p-1">
-                    <form name="query" action="/" method="POST">
-                        <input type="text" name="chat_message" id="chat_message" maxlength="300"
-                            <% if (typeof placeholder_text !== "undefined") { %>
-                                placeholder="<%= placeholder_text %>"
+                                        <% for (let source of statistics.agreeing_sources) { %>
+                                            <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
+                                                <%= source %>
+                                            </a>
+                                            <br>
+                                        <% } %>
+
+                                    </details>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                <div id="disagree">
+                                    <details>
+                                        <summary>
+                                            <h4>
+                                                Conflicting sources:
+                                            </h4>
+                                        </summary>
+
+                                        <% for (let source of statistics.conflicting_sources) { %>
+                                            <a href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
+                                                <%= source %>
+                                            </a>
+                                            <br>
+                                        <% } %>
+
+                                    </details>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                <div id="consensus">
+                                    <p>The general consensus for your claim/query is:</p>
+                                    <% const consensus = statistics.consensus_level %>
+                                    <% if ( consensus > 0.65 ) { %>
+                                        <p class="text-green-400 text-4xl">High: <%= consensus.toFixed(1) %></p>
+                                    <% } else if (consensus > 0.35 ) { %>
+                                        <p class="text-yellow-400 text-4xl">Mixed: <%= consensus.toFixed(1) %></p>
+                                    <% } else if (consensus <= 0.35 && consensus >= 0) { %>
+                                        <p class="text-red-500 text-4xl">Low: <%= consensus.toFixed(1) %></p>
+                                    <% } else { %>
+                                        <p class="text-4xl" style="color: grey">Unclear</p>
+                                    <% } %>
+                                </div>
                             <% } %>
-                            class="container w-full min-h-24 py-1 px-4 mb-0 rounded-b-3xl rounded-t-md" />
-                        <span id="prompt_length" class="min-h-4 pl-4 mt-0">&ThickSpace;</span>
-                        <button type="submit" class="hidden"></button>
-                        <script>
-                            const input = document.getElementById("chat_message");
-                            const prompt_length = document.getElementById("prompt_length");
+                        </div>
+                    </div>
+                    <div id="request" class="content h-auto w-full p-1">
+                        <form name="query" action="/" method="POST">
+                            <input type="text" name="chat_message" id="chat_message" maxlength="300"
+                                <% if (typeof placeholder_text !== "undefined") { %>
+                                    placeholder="<%= placeholder_text %>"
+                                <% } %>
+                                class="container w-full min-h-24 py-1 px-4 mb-0 rounded-b-3xl rounded-t-md" />
+                            <span id="prompt_length" class="min-h-4 pl-4 mt-0">&ThickSpace;</span>
+                            <button type="submit" class="hidden"></button>
+                            <script>
+                                const input = document.getElementById("chat_message");
+                                const prompt_length = document.getElementById("prompt_length");
 
-                            input.addEventListener("input", () => {
-                                prompt_length.textContent = `${input.value.length}/300`;
+                                input.addEventListener("input", () => {
+                                    prompt_length.textContent = `${input.value.length}/300`;
 
-                                if (input.value.length == 300) {
-                                    prompt_length.style.color = "red";
-                                } else if (input.value.length > 250) {
-                                    prompt_length.style.color = "orange";
-                                } else if (input.value.length > 1) {
-                                    prompt_length.style.color = "white";
-                                } else {
-                                    prompt_length.style.color = "grey";
-                                }
-                            });
-                        </script>
-                    </form>
-                </div>
+                                    if (input.value.length == 300) {
+                                        prompt_length.style.color = "red";
+                                    } else if (input.value.length > 250) {
+                                        prompt_length.style.color = "orange";
+                                    } else if (input.value.length > 1) {
+                                        prompt_length.style.color = "white";
+                                    } else {
+                                        prompt_length.style.color = "grey";
+                                    }
+                                });
+                            </script>
+                        </form>
+                    </div>
+
+                <% } %>
             </div>
         </main>
 

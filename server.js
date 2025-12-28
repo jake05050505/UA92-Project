@@ -6,7 +6,13 @@ const session = require("express-session");
 const crypto = require("crypto");
 
 dotenv.config();
-const client = new OpenAI();
+let client;
+const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
+if (NO_API_KEY){
+    console.log("No API key was found, this will prevent the main page from working.");
+} else {
+    client = new OpenAI();
+}
 const app = express();
 const PORT = 3000;
 
@@ -43,10 +49,10 @@ app.get("/", (req, res) => {
 
     const { gpt_message, gpt_statistics } = req.session;
     if (typeof gpt_message !== "undefined" && typeof gpt_statistics !== "undefined") {
-        return res.render("app", { dev_mode, placeholder_text, message: gpt_message, statistics: gpt_statistics });
+        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text, message: gpt_message, statistics: gpt_statistics });
     }
     else {
-        return res.render("app", { dev_mode, placeholder_text });
+        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text });
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
