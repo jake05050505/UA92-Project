@@ -29,9 +29,9 @@ Now that the project is installed, you'll need to setup your API key.
 ### Environment
 - First, you'll need an API key from OpenAI. You can do this by logging in with your OpenAI account at https://openai.com/api/, clicking the "Dashboard" link (top right), then API keys (sidebar, under Manage). Create a new API key (recommended) or use an existing one.
 1. In the `project/` folder, create a new file called `.env`.
-2. Open the `.env` file with your text editor, and add the line `OPENAI_API_KEY=`. Paste your API key after the equals sign. The file should look something like: `OPENAI_API_KEY=sk-proj-` and a long string of characters.
+2. Open the `.env` file in your text editor, and add the line `OPENAI_API_KEY=your_api_key`.
 
-If you don't want to create a `.env` file and would prefer to use a system environment variable, you can do so by setting it in your shell. This hasn't been tested and may not work as expected.
+If you don't want to create a `.env` file, and would prefer to use a system environment variable, you can do so by setting it in your shell. This hasn't been tested and may not work as expected.
 
 ```PowerShell
 $env:OPENAI_API_KEY="Your_API_Key"
@@ -46,7 +46,7 @@ $env:OPENAI_API_KEY="Your_API_Key"
 
 ## Drawbacks
 ### Specific
-- This project uses presently-available data and analyses on a certain subject, and summarises all data it finds into a digestible message, and score. This means it probably won't work on novel misinformation (with no research/existing validation).
+- This project uses presently-available data and analyses on a certain subject, and summarises all data it finds into a digestible message, and score. This means it may not work on novel misinformation (new misinformation, with no existing research/validation).
 - If the majority of available data represents an opinion which is incorrect or unfavourable, the response will reflect in-favor of the incorrect take. An incorrect, yet outspoken claim may erroneously be labelled as correct.
 - AI can, and will make mistakes, double-check responses against validated information.
 - Messages cost approx £0.10/message depending on length of input/output.
