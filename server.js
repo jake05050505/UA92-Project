@@ -94,7 +94,7 @@ app.post("/", (req, res) => {
                 - message: A concise summary of the findings. For opinions or disputed points, state the claim and how many sources support it.
                 - statistics.agreeing_sources: A list of URLs of sources which support a claim a user has made, or which help answer a question.
                 - statistics.conflicting_sources: A list of URLs of sources which conflict with a claim the user has made.
-                - statistics.consensus_level: A number representing the proportion of sources that support the claim.
+                - statistics.consensus_level: A number, to two decimal places, representing the proportion of sources that support the claim.
                     - 0 means heavy disagreement.
                     - 0.5 means mixed opinions.
                     - 1 means widely agreed on.
@@ -147,6 +147,7 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
+        req.session.loading
         if (dev_mode){ console.log(gpt_response); }
 
         gpt_response = JSON.parse(gpt_response.output_text);
