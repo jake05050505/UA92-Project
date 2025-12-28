@@ -58,7 +58,8 @@ app.get("/", (req, res) => {
 app.get("/home", ({ res }) => { return res.redirect("/"); });
 app.get("/about", ({ res }) => { console.log("Incoming GET request on \'/about\'"); return res.render("about"); });
 app.get("/clear", (req, res) => {
-    delete req.session.chat_response;
+    delete req.session.gpt_message;
+    delete req.session.gpt_statistics;
     return res.redirect("/");
 });
 //#endregion
