@@ -32,7 +32,7 @@ app.use(session({
     }
 }));
 
-const dev_mode = process.env.NODE_ENV !== "production";
+const dev_mode = process.env.NODE_ENV === "development";
 
 //#region GET
 app.get("/", (req, res) => {

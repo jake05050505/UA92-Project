@@ -12,11 +12,17 @@ In the current version, this project uses the following technologies:
 - TailwindCSS
 - OpenAI ChatGPT (gpt-5-mini)
 
+and node packages:
+- cross-env
+- dotenv
+- ejs
+- nodemon
+
 ## Setup
 ### Installation
 - This project uses node.js. You can install node.js here: https://nodejs.org/
 1. Clone the repository into a directory of your choice.
-2. Open the cloned repository in your terminal.
+2. Open the cloned repository in your terminal with `$ cd path/to/cloned_repo`.
 3. Enter the command `$ npm i` to install required dependencies.
 Now that the project is installed, you'll need to setup your API key.
 
@@ -24,6 +30,12 @@ Now that the project is installed, you'll need to setup your API key.
 - First, you'll need an API key from OpenAI. You can do this by logging in with your OpenAI account at https://openai.com/api/, clicking the "Dashboard" link (top right), then API keys (sidebar, under Manage). Create a new API key (recommended) or use an existing one.
 1. In the `project/` folder, create a new file called `.env`.
 2. Open the `.env` file with your text editor, and add the line `OPENAI_API_KEY=`. Paste your API key after the equals sign. The file should look something like: `OPENAI_API_KEY=sk-proj-` and a long string of characters.
+
+If you don't want to create a `.env` file and would prefer to use a system environment variable, you can do so by setting it in your shell. This hasn't been tested and may not work as expected.
+
+```PowerShell
+$env:OPENAI_API_KEY="Your_API_Key"
+```
 
 ### Running the server
 1. Open the cloned repository in your terminal.
