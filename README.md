@@ -37,6 +37,7 @@ Now that the project is installed, you'll need to setup your API key.
 - This project uses presently-available data and analyses on a certain subject, and summarises all data it finds into a digestible message, and score. This means it probably won't work on novel misinformation (with no research/existing validation).
 - If the majority of available data represents an opinion which is incorrect or unfavourable, the response will reflect in-favor of the incorrect take. An incorrect, yet outspoken claim may erroneously be labelled as correct.
 - AI can, and will make mistakes, double-check responses against validated information.
+- Messages cost approx £0.10/message depending on length of input/output.
 ### Non-specific
 - This project doesn't follow latest security practices. For this reason, it won't be hosted. Critical security practices (such as not exposing API keys - .env file and `dotenv` npm module) will be followed.
 
