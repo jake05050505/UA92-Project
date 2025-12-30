@@ -92,7 +92,7 @@ app.post("/", (req, res) => {
 
                 Return:
                 - message: A concise summary of the findings. For opinions or disputed points, state the claim and how many sources support it.
-                - statistics.agreeing_sources: A list of URLs of sources which support a claim a user has made, or which help answer a question.
+                - statistics.supporting_sources: A list of URLs of sources which support a claim a user has made, or which help answer a question.
                 - statistics.conflicting_sources: A list of URLs of sources which conflict with a claim the user has made.
                 - statistics.consensus_level: A number, to two decimal places, representing the proportion of sources that support the claim.
                     - 0 means heavy disagreement.
@@ -129,14 +129,14 @@ app.post("/", (req, res) => {
                             type: "object",
                             additionalProperties: false,
                             properties: {
-                                agreeing_sources: { type: "array", items: { type: "string"} },
+                                supporting_sources: { type: "array", items: { type: "string"} },
                                 conflicting_sources: { type: "array", items: { type: "string"} },
                                 consensus_level: {
                                     type: "number",
                                 }
                             },
                             required: [
-                                "agreeing_sources",
+                                "supporting_sources",
                                 "conflicting_sources",
                                 "consensus_level"
                             ]
