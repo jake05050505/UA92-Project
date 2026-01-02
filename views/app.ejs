@@ -87,9 +87,9 @@
                                 <hr>
                                 <br>
                                 <div id="consensus">
-                                    <p>The general consensus for your claim/query is:</p>
+                                    <h4>The general consensus for your prompt is:</h4>
                                     <% const consensus = statistics.consensus_level %>
-                                    <% if ( consensus > 0.65 ) { %>
+                                    <% if ( consensus > 0.75 ) { %>
                                         <p class="text-green-400 text-3xl">High: <%= consensus.toFixed(2) %></p>
                                     <% } else if (consensus > 0.35 ) { %>
                                         <p class="text-yellow-400 text-3xl">Mixed: <%= consensus.toFixed(2) %></p>
