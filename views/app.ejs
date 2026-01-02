@@ -89,11 +89,11 @@
                                 <div id="consensus">
                                     <h4>The general consensus for your prompt is:</h4>
                                     <% const consensus = statistics.consensus_level %>
-                                    <% if ( consensus > 0.75 ) { %>
+                                    <% if ( consensus > 0.80 ) { %>
                                         <p class="text-green-400 text-3xl">High: <%= consensus.toFixed(2) %></p>
-                                    <% } else if (consensus > 0.35 ) { %>
+                                    <% } else if (consensus > 0.40 ) { %>
                                         <p class="text-yellow-400 text-3xl">Mixed: <%= consensus.toFixed(2) %></p>
-                                    <% } else if (consensus <= 0.35 && consensus >= 0) { %>
+                                    <% } else if (consensus <= 0.40 && consensus >= 0) { %>
                                         <p class="text-red-500 text-3xl">Low: <%= consensus.toFixed(2) %></p>
                                     <% } else { %>
                                         <p class="text-3xl" style="color: grey">Unclear</p>
