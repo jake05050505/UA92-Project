@@ -1,4 +1,7 @@
 /* #region main */
+#response {
+    min-height: 90%;
+}
 @media screen and (max-height: 1044px) {
     #response {
         min-height: 86.125%;
@@ -22,7 +25,6 @@
         font-size: var(--text-3xl);
     }
 }
-
 @media screen and (orientation: portrait){
     #response{
         grid-template-areas:
@@ -44,6 +46,18 @@
 
 #statistics {
     grid-area: extra;
+}
+
+#loader {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 /* #endregion */
 /* #region classes */
@@ -78,3 +92,4 @@ div, span, header, main {
     outline-color: red;
 }
 /* #endregion */
+
