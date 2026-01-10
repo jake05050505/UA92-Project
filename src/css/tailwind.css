@@ -45,13 +45,16 @@
     }
     nav > a:focus,
     nav > a:hover {
-        @apply bg-slate-800 ring-2 ring-slate-500;
+        @apply bg-slate-900 ring-2 ring-slate-500;
     }
-    #controls > a:focus,
-    #controls > a:hover,
+    #loader {
+        @apply mt-auto mb-auto border-4 border-slate-950 border-t-blue-500;
+    }
+    #controls a:focus,
+    #controls a:hover,
     #statistics a:hover,
     #statistics a:focus {
-        @apply bg-slate-900 ring-2 ring-slate-500;
+        @apply bg-slate-800 ring-2 ring-slate-500;
     }
     a:active {
         @apply bg-slate-600 ring-2 ring-white;
