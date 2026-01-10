@@ -74,6 +74,10 @@
 .container {
     border: 2px solid var(--border);
 }
+
+.error {
+    outline: 2px solid red;
+}
 /* #endregion */
 /* #region debug */
 :root {
