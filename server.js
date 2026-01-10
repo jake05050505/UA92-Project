@@ -64,7 +64,6 @@ app.get("/clear", (req, res) => {
 });
 //#endregion
 
-//#region post
 app.post("/", (req, res) => {
     console.log("Incoming POST request on \'/\'");
 
@@ -147,7 +146,6 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        req.session.loading
         if (dev_mode){ console.log(gpt_response); }
 
         gpt_response = JSON.parse(gpt_response.output_text);
@@ -160,7 +158,6 @@ app.post("/", (req, res) => {
         return res.status(500).send(err.message);
     });
 });
-//#endregion
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
