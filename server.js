@@ -9,7 +9,7 @@ dotenv.config();
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
-    console.log("No API key was found, this will prevent the chat interface from working.");
+    console.log("[Warning] No API key was found, this will prevent the chat interface from working.");
 } else {
     client = new OpenAI();
 }
@@ -36,7 +36,7 @@ const dev_mode = process.env.NODE_ENV === "development";
 
 //#region GET
 app.get("/", (req, res) => {
-    console.log("Incoming GET request on \'/\'");
+    console.log("[Info] Incoming GET request on \'/\'");
 
     const placeholder_texts_array = [
         "Is it true that...",
@@ -56,7 +56,7 @@ app.get("/", (req, res) => {
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
-app.get("/about", ({ res }) => { console.log("Incoming GET request on \'/about\'"); return res.render("about"); });
+app.get("/about", ({ res }) => { console.log("[Info] Incoming GET request on \'/about\'"); return res.render("about"); });
 app.get("/clear", (req, res) => {
     delete req.session.gpt_message;
     delete req.session.gpt_statistics;
@@ -65,11 +65,11 @@ app.get("/clear", (req, res) => {
 //#endregion
 
 app.post("/", (req, res) => {
-    console.log("Incoming POST request on \'/\'");
+    console.log("[Info] Incoming POST request on \'/\'");
 
     const user_query = req.body.chat_message;
 
-    if (dev_mode){ console.log(user_query.split(' '), user_query.split(' ').length); }
+    if (dev_mode){ console.log(`[Info] Recent Input: ${user_query}`); }
 
     if (user_query.length > 300) {
         return res.render("app", { error: "Your previous input was too long." });
@@ -77,12 +77,16 @@ app.post("/", (req, res) => {
         return res.render("app", { error: "Please provide a suitable input." });
     }
 
+    // setTimeout(() => {
+    //     return res.redirect("/");
+    // }, 10*1000); // 10 seconds
+
     const gpt_response = client.responses.create({
         model: "gpt-5-mini",
         tools: [
             { type: "web_search", }
         ],
-        input: [ // ChatGPT was used to help refine system prompt.
+        input: [ // ChatGPT was used to help create an effective system prompt.
             {
                 role: "system",
                 content: `You are a credibility analysis engine.
@@ -146,7 +150,7 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        if (dev_mode){ console.log(gpt_response); }
+        if (dev_mode){ console.log(`[Info] ChatGPT response: ${gpt_response}`); }
 
         gpt_response = JSON.parse(gpt_response.output_text);
         req.session.gpt_message = gpt_response.message;
@@ -154,12 +158,12 @@ app.post("/", (req, res) => {
 
         return res.redirect("/");
     }).catch(err => {
-        console.log(err);
+        console.log(`[Error] ${err}`);
         return res.status(500).send(err.message);
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    if (dev_mode) { console.log(`Debugging enabled.`); }
+    console.log(`[Info] Server running on http://localhost:${PORT}`);
+    if (dev_mode) { console.log(`[Info] Debugging enabled.`); }
 });
