@@ -236,6 +236,9 @@
   .h-auto {
     height: auto;
   }
+  .h-fit {
+    height: fit-content;
+  }
   .h-full {
     height: 100%;
   }
@@ -250,6 +253,9 @@
   }
   .min-h-24 {
     min-height: calc(var(--spacing) * 24);
+  }
+  .min-h-full {
+    min-height: 100%;
   }
   .w-11\/12 {
     width: calc(11/12 * 100%);
