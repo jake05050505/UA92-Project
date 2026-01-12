@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(session({
-    secret: "session-secret",
+    secret: "session-secret", // unsafe cookie secret, could allow cookie forgery if login is implemented
     saveUninitialized: true,
     resave: false,
     cookie: {
@@ -38,14 +38,14 @@ const dev_mode = process.env.NODE_ENV === "development";
 app.get("/", (req, res) => {
     console.log("[Info] Incoming GET request on \'/\'");
 
-    const placeholder_texts_array = [
+    const placeholder_text_array = [
         "Is it true that...",
         "Is this true?",
         "I heard that...",
         "Did [...] really happen?",
         "Someone told me that...",
     ];
-    const placeholder_text = placeholder_texts_array[crypto.randomInt(placeholder_texts_array.length)];
+    const placeholder_text = placeholder_text_array[crypto.randomInt(placeholder_text_array.length)];
 
     const { gpt_message, gpt_statistics } = req.session;
     if (typeof gpt_message !== "undefined" && typeof gpt_statistics !== "undefined") {

@@ -33,7 +33,7 @@
             "message message";
     }
     #header {
-        font-size: 1.4em;
+        font-size: var(--text-2xl);
     }
 }
 
@@ -48,7 +48,7 @@
     grid-area: extra;
 }
 
-#loader {
+#loader { /* adapted from https://www.w3schools.com/howto/howto_css_loader.asp */
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
