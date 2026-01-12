@@ -9,7 +9,7 @@ dotenv.config();
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
-    console.log("[Warning] No API key was found, this will prevent the chat interface from working.");
+    console.warn("[Warning] No API key was found, this will prevent the chat interface from working.");
 } else {
     client = new OpenAI();
 }
@@ -158,7 +158,7 @@ app.post("/", (req, res) => {
 
         return res.redirect("/");
     }).catch(err => {
-        console.log(`[Error] ${err}`);
+        console.error(`[Error] ${err}`);
         return res.status(500).send(err.message);
     });
 });
