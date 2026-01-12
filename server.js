@@ -9,7 +9,7 @@ dotenv.config();
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
-    console.warn("[Warning] No API key was found, this will prevent the chat interface from working.");
+    console.warn(`[Warning ${new Date().toLocaleString()}] No API key was found, this will prevent the chat interface from working.`);
 } else {
     client = new OpenAI();
 }
@@ -36,7 +36,7 @@ const dev_mode = process.env.NODE_ENV === "development";
 
 //#region GET
 app.get("/", (req, res) => {
-    console.log("[Info] Incoming GET request on \'/\'");
+    console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/\'`);
 
     const placeholder_text_array = [
         "Is it true that...",
@@ -56,7 +56,7 @@ app.get("/", (req, res) => {
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
-app.get("/about", ({ res }) => { console.log("[Info] Incoming GET request on \'/about\'"); return res.render("about"); });
+app.get("/about", ({ res }) => { console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/about\'`); return res.render("about"); });
 app.get("/clear", (req, res) => {
     delete req.session.gpt_message;
     delete req.session.gpt_statistics;
@@ -65,11 +65,11 @@ app.get("/clear", (req, res) => {
 //#endregion
 
 app.post("/", (req, res) => {
-    console.log("[Info] Incoming POST request on \'/\'");
+    console.log(`[Info ${new Date().toLocaleString()}] Incoming POST request on \'/\'`);
 
     const user_query = req.body.chat_message;
 
-    if (dev_mode){ console.log(`[Info] Recent Input: ${user_query}`); }
+    if (dev_mode){ console.log(`[Info ${new Date().toLocaleString()}] Recent Input: ${user_query}`); }
 
     if (user_query.length > 300) {
         return res.render("app", { error: "Your previous input was too long." });
@@ -150,7 +150,7 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        if (dev_mode){ console.log(`[Info] ChatGPT response: ${gpt_response.output_text}`); }
+        if (dev_mode){ console.log(`[Info ${new Date().toLocaleString()}] ChatGPT response: ${gpt_response.output_text}`); }
 
         gpt_response = JSON.parse(gpt_response.output_text);
         req.session.gpt_message = gpt_response.message;
@@ -158,12 +158,12 @@ app.post("/", (req, res) => {
 
         return res.redirect("/");
     }).catch(err => {
-        console.error(`[Error] ${err}`);
+        console.error(`[Error ${new Date().toLocaleString()}] ${err}`);
         return res.status(500).send(err.message);
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`[Info] Server running on http://localhost:${PORT}`);
-    if (dev_mode) { console.log(`[Info] Debugging enabled.`); }
+    console.log(`[Info ${new Date().toLocaleString()}] Server running on http://localhost:${PORT}`);
+    if (dev_mode) { console.log(`[Info ${new Date().toLocaleString()}] Debugging enabled.`); }
 });
