@@ -81,7 +81,7 @@ app.post("/", (req, res) => {
     //     return res.redirect("/");
     // }, 10*1000); // 10 seconds
 
-    const gpt_response = client.responses.create({
+    client.responses.create({
         model: "gpt-5-mini",
         tools: [
             { type: "web_search", }
@@ -150,7 +150,7 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        if (dev_mode){ console.log(`[Info] ChatGPT response: ${gpt_response}`); }
+        if (dev_mode){ console.log(`[Info] ChatGPT response: ${gpt_response.output_text}`); }
 
         gpt_response = JSON.parse(gpt_response.output_text);
         req.session.gpt_message = gpt_response.message;
