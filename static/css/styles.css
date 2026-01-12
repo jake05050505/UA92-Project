@@ -4,12 +4,7 @@
 }
 @media screen and (max-height: 1044px) {
     #response {
-        min-height: 86.125%;
-    }
-}
-@media screen and (max-height: 756px) {
-    #response {
-        min-height: 80%;
+        min-height: 75%;
     }
 }
 
