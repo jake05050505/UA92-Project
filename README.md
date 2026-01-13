@@ -55,6 +55,6 @@ $env:OPENAI_API_KEY="Your_API_Key"
 
 ## TODO:
 - Message history with sessions (will disappear after session expires)
-- SQL database?
+- SQL database? (ammended: mongodb server)
     - Logins, message history
         - multiple chats?
