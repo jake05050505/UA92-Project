@@ -1,11 +1,6 @@
 /* #region main */
 #response {
-    min-height: 90%;
-}
-@media screen and (max-height: 1044px) {
-    #response {
-        min-height: 75%;
-    }
+    min-height: calc(90% - 5rem);
 }
 
 @media screen and (orientation: landscape){
