@@ -13,6 +13,7 @@ if (NO_API_KEY){
 } else {
     client = new OpenAI();
 }
+
 const app = express();
 const PORT = 3000;
 
@@ -56,7 +57,10 @@ app.get("/", (req, res) => {
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
-app.get("/about", ({ res }) => { console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/about\'`); return res.render("about"); });
+app.get("/about", ({ res }) => { 
+    console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/about\'`);
+    return res.render("about");
+});
 app.get("/clear", (req, res) => {
     delete req.session.gpt_message;
     delete req.session.gpt_statistics;
