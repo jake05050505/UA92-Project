@@ -76,14 +76,10 @@ app.post("/", (req, res) => {
     if (dev_mode){ console.log(`[Info ${new Date().toLocaleString()}] Recent Input: ${user_query}`); }
 
     if (user_query.length > 300) {
-        return res.render("app", { error: "Your previous input was too long." });
+        return res.render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode});
     } else if (user_query.length < 2){
-        return res.render("app", { error: "Please provide a suitable input." });
+        return res.render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
     }
-
-    // setTimeout(() => {
-    //     return res.redirect("/");
-    // }, 10*1000); // 10 seconds
 
     client.responses.create({
         model: "gpt-5-mini",
