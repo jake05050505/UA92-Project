@@ -95,7 +95,7 @@ app.post("/", (req, res) => {
 
                 Return:
                 - message: A concise summary of the findings. For opinions or disputed points, state the claim and how many sources support it.
-                - statistics.supporting_sources: A list of URLs of sources which support a claim a user has made, or which help answer a question.
+                - statistics.supporting_sources: A list of URLs of sources which support a claim a user has made.
                 - statistics.conflicting_sources: A list of URLs of sources which conflict with a claim the user has made.
                 - statistics.consensus_level: A number, to two decimal places, representing the proportion of sources that support the claim.
                     - 0 means heavy disagreement.
