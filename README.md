@@ -22,14 +22,16 @@ and node packages:
 ### Installation
 - This project uses node.js. You can install node.js here: https://nodejs.org/
 1. Clone the repository into a directory of your choice.
-2. Open the cloned repository in your terminal with `$ cd path/to/cloned_repo`.
-3. Enter the command `$ npm i` to install required dependencies.
+2. Open the cloned repository in your terminal with `cd path/to/cloned_repo`.
+3. Enter the command `npm install` to install required dependencies.
+    + (Optional) If you'd like to include dependencies for running in development mode (Extra logging and automatic server-restart on saved changes), enter the command `npm install --save-dev`.
+
 Now that the project is installed, you'll need to setup your API key.
 
 ### Environment
 - First, you'll need an API key from OpenAI. You can do this by logging in with your OpenAI account at https://openai.com/api/, clicking the "Dashboard" link (top right), then API keys (sidebar, under Manage). Create a new API key (recommended) or use an existing one.
 1. In the `project/` folder, create a new file called `.env`.
-2. Open the `.env` file in your text editor, and add the line `OPENAI_API_KEY=your_api_key`.
+2. Open the `.env` file in your text editor, and add the line `OPENAI_API_KEY=your_api_key`, replacing "your_api_key" with the API key you got from your OpenAI API Platform dashboard.
 
 If you don't want to create a `.env` file, and would prefer to use a system environment variable, you can do so by setting it in your shell. This hasn't been tested and may not work as expected.
 
@@ -38,8 +40,9 @@ $env:OPENAI_API_KEY="Your_API_Key"
 ```
 
 ### Running the server
-1. Open the cloned repository in your terminal.
-2. Enter the command `$ npm run start` to start the server.
+1. Open your terminal window (if you closed the window, or restarted your terminal/shell, navigate back to the cloned repository - repeat installation step 2).
+2. Enter the command `npm run start` to start the server.
+- (Optional) If you'd like to run the server in development mode, and have installed dev dependencies (Installation step 3), enter the command `npm run dev` instead.
 3. You should get an output saying: `Server running on http://localhost:3000`, go to this URL in your web browser.
 - To stop the server process, press CTRL+C `^C` in the terminal where you started the server.
 
@@ -54,7 +57,8 @@ $env:OPENAI_API_KEY="Your_API_Key"
 - This project doesn't follow latest security practices. For this reason, it won't be hosted. Critical security practices (such as not exposing API keys - .env file and `dotenv` npm module) will be followed.
 
 ## TODO:
-- Message history with sessions (will disappear after session expires)
+- Message history with sessions (will disappear after session expires).
 - SQL database? (ammended: mongodb server)
     - Logins, message history
         - multiple chats?
+- Front-end API key form which stores the API key in req.session? Potential security issues, must only be done if hosted locally.
