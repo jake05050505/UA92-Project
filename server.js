@@ -95,8 +95,10 @@ app.post("/", (req, res) => {
 
     if (chat_message.length > 300) {
         return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
-    } else if (chat_message.length < 2){
-        return res.status(400).render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
+    } else if (chat_message.length <= 2){
+        return res
+        .status(400)
+        .render("app", { error: "Please provide an input.", NO_API_KEY, dev_mode });
     }
 
     client.responses.create({
@@ -175,7 +177,9 @@ app.post("/", (req, res) => {
         return res.redirect("/");
     }).catch(err => {
         console.error(`[Error ${get_current_time()}] ${err}`);
-        return res.status(500).send(err.message);
+        return res
+        .status(500)
+        .send(err.message);
     });
 });
 
