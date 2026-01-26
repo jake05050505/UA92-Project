@@ -19,6 +19,7 @@ if (NO_API_KEY){
 }
 
 const app = express();
+const HOSTNAME = "localhost"
 const PORT = 3000;
 
 app.set("view engine", "ejs");
@@ -72,15 +73,29 @@ app.get("/clear", (req, res) => {
 
 app.post("/", (req, res) => {
     console.log(`[Info ${get_current_time()}] Incoming POST request on \'/\'`);
-    if (NO_API_KEY){ return res.status(400).render("app", { NO_API_KEY, dev_mode }); }
 
-    const user_query = req.body.chat_message;
+    if (NO_API_KEY){
+        return res
+        .status(400)
+        .render("app", { NO_API_KEY, dev_mode });
+    }
+    if (typeof req.body === "undefined"){
+        return res
+        .status(400)
+        .send(`${HOSTNAME}: error: no request body`);
+    }
+    const { chat_message } = req.body;
+    if (typeof chat_message === "undefined"){
+        return res
+        .status(400)
+        .send(`${HOSTNAME}: error: no chat_message specified`);
+    }
 
-    if (dev_mode){ console.log(`[Info ${get_current_time()}] Recent Input: ${user_query}`); }
+    if (dev_mode){ console.log(`[Info ${get_current_time()}] Recent Input: ${chat_message}`); }
 
-    if (user_query.length > 300) {
+    if (chat_message.length > 300) {
         return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
-    } else if (user_query.length < 2){
+    } else if (chat_message.length < 2){
         return res.status(400).render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
     }
 
@@ -119,7 +134,7 @@ app.post("/", (req, res) => {
             },
             {
                 role: "user",
-                content: user_query
+                content: chat_message
             }
         ],
         text: {
@@ -165,6 +180,6 @@ app.post("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`[Info ${get_current_time()}] Server running on http://localhost:${PORT}`);
+    console.log(`[Info ${get_current_time()}] Server running on http://${HOSTNAME}:${PORT}`);
     if (dev_mode) { console.log(`[Info ${get_current_time()}] Debugging enabled.`); }
 });
