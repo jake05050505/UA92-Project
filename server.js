@@ -72,15 +72,16 @@ app.get("/clear", (req, res) => {
 
 app.post("/", (req, res) => {
     console.log(`[Info ${get_current_time()}] Incoming POST request on \'/\'`);
+    if (NO_API_KEY){ return res.status(400).render("app", { NO_API_KEY, dev_mode }); }
 
     const user_query = req.body.chat_message;
 
     if (dev_mode){ console.log(`[Info ${get_current_time()}] Recent Input: ${user_query}`); }
 
     if (user_query.length > 300) {
-        return res.render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
+        return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
     } else if (user_query.length < 2){
-        return res.render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
+        return res.status(400).render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
     }
 
     client.responses.create({
