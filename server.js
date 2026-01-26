@@ -7,7 +7,7 @@ const crypto = require("crypto");
 
 const get_current_time = () => { return new Date().toLocaleString(); };
 
-const dev_mode = process.env.NODE_ENV === "development";
+const DEV_MODE = process.env.NODE_ENV === "development";
 
 dotenv.config();
 let client;
@@ -54,10 +54,10 @@ app.get("/", (req, res) => {
 
     if (typeof gpt_response !== "undefined") {
         const { message, statistics } = req.session.gpt_response;
-        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text, message, statistics });
+        return res.render("app", { NO_API_KEY, DEV_MODE, placeholder_text, message, statistics });
     }
     else {
-        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text });
+        return res.render("app", { NO_API_KEY, DEV_MODE, placeholder_text });
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
@@ -77,7 +77,7 @@ app.post("/", (req, res) => {
     if (NO_API_KEY){
         return res
         .status(400)
-        .render("app", { NO_API_KEY, dev_mode });
+        .render("app", { NO_API_KEY, DEV_MODE });
     }
     if (typeof req.body === "undefined"){
         return res
@@ -91,14 +91,14 @@ app.post("/", (req, res) => {
         .send(`${HOSTNAME}: error: no chat_message specified`);
     }
 
-    if (dev_mode){ console.log(`[Info ${get_current_time()}] Recent Input: ${chat_message}`); }
+    if (DEV_MODE){ console.log(`[Info ${get_current_time()}] Recent Input: ${chat_message}`); }
 
     if (chat_message.length > 300) {
-        return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
+        return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, DEV_MODE });
     } else if (chat_message.length <= 2){
         return res
         .status(400)
-        .render("app", { error: "Please provide an input.", NO_API_KEY, dev_mode });
+        .render("app", { error: "Please provide an input.", NO_API_KEY, DEV_MODE });
     }
 
     client.responses.create({
@@ -170,7 +170,7 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        if (dev_mode){ console.log(`[Info ${get_current_time()}] ChatGPT response: ${gpt_response.output_text}`); }
+        if (DEV_MODE){ console.log(`[Info ${get_current_time()}] ChatGPT response: ${gpt_response.output_text}`); }
 
         req.session.gpt_response = JSON.parse(gpt_response.output_text);
 
@@ -185,5 +185,5 @@ app.post("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`[Info ${get_current_time()}] Server running on http://${HOSTNAME}:${PORT}`);
-    if (dev_mode) { console.log(`[Info ${get_current_time()}] Debugging enabled.`); }
+    if (DEV_MODE) { console.log(`[Info ${get_current_time()}] Debugging enabled.`); }
 });
