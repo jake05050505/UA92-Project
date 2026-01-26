@@ -5,11 +5,15 @@ const path = require("path");
 const session = require("express-session");
 const crypto = require("crypto");
 
+const get_current_time = () => { return new Date().toLocaleString(); };
+
+const dev_mode = process.env.NODE_ENV === "development";
+
 dotenv.config();
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
-    console.warn(`[Warning ${new Date().toLocaleString()}] No API key was found, this will prevent the chat interface from working.`);
+    console.warn(`[Warning ${get_current_time()}] No API key was found, this will prevent the chat interface from working.`);
 } else {
     client = new OpenAI();
 }
@@ -24,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(session({
-    secret: "session-secret", // unsafe cookie secret, could allow cookie forgery if login is implemented
+    secret: "session-secret", // unsafe secret, could allow session forgery if login is implemented
     saveUninitialized: true,
     resave: false,
     cookie: {
@@ -33,11 +37,10 @@ app.use(session({
     }
 }));
 
-const dev_mode = process.env.NODE_ENV === "development";
 
 //#region GET
 app.get("/", (req, res) => {
-    console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/\'`);
+    console.log(`[Info ${get_current_time()}] Incoming GET request on \'/\'`);
 
     const placeholder_text_array = [
         "Is it true that...",
@@ -48,35 +51,34 @@ app.get("/", (req, res) => {
     ];
     const placeholder_text = placeholder_text_array[crypto.randomInt(placeholder_text_array.length)];
 
-    const { gpt_message, gpt_statistics } = req.session;
-    if (typeof gpt_message !== "undefined" && typeof gpt_statistics !== "undefined") {
-        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text, message: gpt_message, statistics: gpt_statistics });
+    if (typeof gpt_response !== "undefined") {
+        const { message, statistics } = req.session.gpt_response;
+        return res.render("app", { NO_API_KEY, dev_mode, placeholder_text, message, statistics });
     }
     else {
         return res.render("app", { NO_API_KEY, dev_mode, placeholder_text });
     }
 });
 app.get("/home", ({ res }) => { return res.redirect("/"); });
-app.get("/about", ({ res }) => { 
-    console.log(`[Info ${new Date().toLocaleString()}] Incoming GET request on \'/about\'`);
+app.get("/about", ({ res }) => {
+    console.log(`[Info ${get_current_time()}] Incoming GET request on \'/about\'`);
     return res.render("about");
 });
 app.get("/clear", (req, res) => {
-    delete req.session.gpt_message;
-    delete req.session.gpt_statistics;
+    delete req.session.gpt_response;
     return res.redirect("/");
 });
 //#endregion
 
 app.post("/", (req, res) => {
-    console.log(`[Info ${new Date().toLocaleString()}] Incoming POST request on \'/\'`);
+    console.log(`[Info ${get_current_time()}] Incoming POST request on \'/\'`);
 
     const user_query = req.body.chat_message;
 
-    if (dev_mode){ console.log(`[Info ${new Date().toLocaleString()}] Recent Input: ${user_query}`); }
+    if (dev_mode){ console.log(`[Info ${get_current_time()}] Recent Input: ${user_query}`); }
 
     if (user_query.length > 300) {
-        return res.render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode});
+        return res.render("app", { error: "Your previous input was too long.", NO_API_KEY, dev_mode });
     } else if (user_query.length < 2){
         return res.render("app", { error: "Please provide a suitable input.", NO_API_KEY, dev_mode });
     }
@@ -150,20 +152,18 @@ app.post("/", (req, res) => {
             }
         }
     }).then(gpt_response => {
-        if (dev_mode){ console.log(`[Info ${new Date().toLocaleString()}] ChatGPT response: ${gpt_response.output_text}`); }
+        if (dev_mode){ console.log(`[Info ${get_current_time()}] ChatGPT response: ${gpt_response.output_text}`); }
 
-        gpt_response = JSON.parse(gpt_response.output_text);
-        req.session.gpt_message = gpt_response.message;
-        req.session.gpt_statistics = gpt_response.statistics;
+        req.session.gpt_response = JSON.parse(gpt_response.output_text);
 
         return res.redirect("/");
     }).catch(err => {
-        console.error(`[Error ${new Date().toLocaleString()}] ${err}`);
+        console.error(`[Error ${get_current_time()}] ${err}`);
         return res.status(500).send(err.message);
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`[Info ${new Date().toLocaleString()}] Server running on http://localhost:${PORT}`);
-    if (dev_mode) { console.log(`[Info ${new Date().toLocaleString()}] Debugging enabled.`); }
+    console.log(`[Info ${get_current_time()}] Server running on http://localhost:${PORT}`);
+    if (dev_mode) { console.log(`[Info ${get_current_time()}] Debugging enabled.`); }
 });
