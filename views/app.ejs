@@ -132,7 +132,7 @@
 
                 form.addEventListener("submit", (submitEvent) => {
                   submitEvent.preventDefault();
-                  if (input.value.length <= 300){
+                  if (input.value.length <= 300 || input.value.length > 2){
                     loader.setAttribute("style", "visibility: visible;");
                     form.submit();
                   } else {

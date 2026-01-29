@@ -77,7 +77,7 @@ app.post("/", (req, res) => {
     console.log(`[Info ${get_current_time()}] Incoming POST request on \'/\'`);
 
     if (NO_API_KEY){
-        return res.status(400)
+        return res.status(500)
         .send(`${HOSTNAME}: error: invalid API key configuration`);
     }
     if (typeof req.body === "undefined"){
