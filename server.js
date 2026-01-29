@@ -9,7 +9,9 @@ const get_current_time = () => { return new Date().toLocaleString(); };
 
 const DEV_MODE = process.env.NODE_ENV === "development";
 
-dotenv.config();
+if (!process.argv.includes("noapi")){
+    dotenv.config();
+}
 let client;
 const NO_API_KEY = typeof process.env.OPENAI_API_KEY === "undefined";
 if (NO_API_KEY){
@@ -75,30 +77,27 @@ app.post("/", (req, res) => {
     console.log(`[Info ${get_current_time()}] Incoming POST request on \'/\'`);
 
     if (NO_API_KEY){
-        return res
-        .status(400)
-        .render("app", { NO_API_KEY, DEV_MODE });
+        return res.status(400)
+        .send(`${HOSTNAME}: error: invalid API key configuration`);
     }
     if (typeof req.body === "undefined"){
-        return res
-        .status(400)
+        return res.status(400)
         .send(`${HOSTNAME}: error: no request body`);
     }
     const { chat_message } = req.body;
     if (typeof chat_message === "undefined"){
-        return res
-        .status(400)
+        return res.status(400)
         .send(`${HOSTNAME}: error: no chat_message specified`);
     }
 
     if (DEV_MODE){ console.log(`[Info ${get_current_time()}] Recent Input: ${chat_message}`); }
 
     if (chat_message.length > 300) {
-        return res.status(400).render("app", { error: "Your previous input was too long.", NO_API_KEY, DEV_MODE });
+        return res.status(400)
+        .send(`${HOSTNAME}: error: Your previous input was too long.`);
     } else if (chat_message.length <= 2){
-        return res
-        .status(400)
-        .render("app", { error: "Please provide an input.", NO_API_KEY, DEV_MODE });
+        return res.status(400)
+        .send(`${HOSTNAME}: error: Please provide a suitable input.`);
     }
 
     client.responses.create({

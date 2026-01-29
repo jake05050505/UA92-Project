@@ -17,7 +17,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "start_noapi": "node server.js noapi",
     "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "dev_noapi": "cross-env NODE_ENV=development nodemon server.js noapi",
     "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./static/css/tailwind.css"
   },
   "dependencies": {
