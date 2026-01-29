@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(session({
-    secret: "session-secret", // unsafe secret, could allow session forgery if login is implemented
+    secret: "session-secret", // unsafe secret, could allow session forgery if auth is implemented
     saveUninitialized: true,
     resave: false,
     cookie: {
@@ -80,6 +80,7 @@ app.post("/", (req, res) => {
         return res.status(500)
         .send(`${HOSTNAME}: error: invalid API key configuration`);
     }
+
     if (typeof req.body === "undefined"){
         return res.status(400)
         .send(`${HOSTNAME}: error: no request body`);
@@ -92,12 +93,14 @@ app.post("/", (req, res) => {
 
     if (DEV_MODE){ console.log(`[Info ${get_current_time()}] Recent Input: ${chat_message}`); }
 
-    if (chat_message.length > 300) {
+    if (chat_message.length > 300 || chat_message.length < 3) {
+        const error = chat_message.length > 300 ? "Your previous input was too long" : "Your previous input was too short";
         return res.status(400)
-        .send(`${HOSTNAME}: error: Your previous input was too long.`);
-    } else if (chat_message.length < 3){
-        return res.status(400)
-        .send(`${HOSTNAME}: error: Please provide a suitable input.`);
+        .format({
+            json: () => res.send({ host: `${HOSTNAME}:${PORT}`, error: `${error}`}),
+            html: () => res.render("app", { NO_API_KEY, DEV_MODE, error }),
+            default: () => res.send({ message: `${HOSTNAME}: error: Not Acceptable` })
+        });
     }
 
     client.responses.create({
