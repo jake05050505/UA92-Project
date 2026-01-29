@@ -95,7 +95,7 @@ app.post("/", (req, res) => {
     if (chat_message.length > 300) {
         return res.status(400)
         .send(`${HOSTNAME}: error: Your previous input was too long.`);
-    } else if (chat_message.length <= 2){
+    } else if (chat_message.length < 3){
         return res.status(400)
         .send(`${HOSTNAME}: error: Please provide a suitable input.`);
     }
