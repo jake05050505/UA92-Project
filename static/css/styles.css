@@ -57,7 +57,7 @@
 }
 
 .content {
-    width: calc(min(100vh, 100vw));
+    width: 50vw;
     margin-inline: auto;
 }
 
