@@ -19,6 +19,7 @@
 
     <main class="h-full">
       <div id="main-content" class="content h-full flex flex-col flex-1">
+
         <% if (NO_API_KEY) { %>
           <h3 class="text-red-500">Please check your API Key configuration to use this app</h3>
           <h4 class="text-red-500">ERR: NO_API_KEY</h4>
@@ -30,12 +31,13 @@
                 <a class="text-xl px-2" href="/clear">Clear Chat</a>
               </div>
               <div id="message-contents" class="px-8 py-2">
-                <% if ( typeof message !== "undefined" ) { %>
-                  <p><%= message %></p>
-                <% } %>
+
                 <% if ( typeof error !== "undefined" ) { %>
                   <p class="text-red-500"><%= error %></p>
+                <% } else if ( typeof message !== "undefined" ) { %>
+                  <p><%= message %></p>
                 <% } %>
+
               </div>
             </div>
             <div id="statistics" class="container rounded-3xl rounded-b-md rounded-l-md">
@@ -139,13 +141,14 @@
                     message_box.classList.add("error");
                     setTimeout(() => {
                       message_box.classList.remove("error");
-                    },1*1000);
+                    }, 1*1000);
                   }
                 });
               </script>
             </form>
           </div>
         <% } %>
+
       </div>
     </main>
 
