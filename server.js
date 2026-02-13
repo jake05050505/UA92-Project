@@ -21,7 +21,7 @@ if (NO_API_KEY){
 }
 
 const app = express();
-const HOSTNAME = "localhost"
+const HOSTNAME = "localhost";
 const PORT = 3000;
 
 app.set("view engine", "ejs");
@@ -49,12 +49,11 @@ app.get("/", (req, res) => {
         "Is it true that...",
         "Is this true?",
         "I heard that...",
-        "Did [...] really happen?",
         "Someone told me that...",
     ];
     const placeholder_text = placeholder_text_array[crypto.randomInt(placeholder_text_array.length)];
 
-    if (typeof gpt_response !== "undefined") {
+    if (typeof req.session.gpt_response !== "undefined") {
         const { message, statistics } = req.session.gpt_response;
         return res.render("app", { NO_API_KEY, DEV_MODE, placeholder_text, message, statistics });
     }
