@@ -54,7 +54,7 @@
                       <a target="_blank" href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                         <%= source %>
                       </a>
-                      <br>
+                      <br />
                     <% } %>
 
                   </details>
@@ -74,22 +74,22 @@
                       <a target="_blank" href="<%= source %>" class="text-sm"> <!-- Potentially unsafe? -->
                         <%= source %>
                       </a>
-                      <br>
+                      <br />
                     <% } %>
 
                   </details>
                 </div>
-                <br>
-                <hr>
-                <br>
+                <br />
+                <hr />
+                <br />
                 <div id="consensus">
                   <h4>The general consensus for your prompt is:</h4>
                   <% const consensus=statistics.consensus_level %>
                   <% if ( consensus> 0.80 ) { %>
                     <p class="text-green-500 text-3xl">High: <%= consensus.toFixed(2) %></p>
-                  <% } else if (consensus> 0.30 ) { %>
+                  <% } else if (consensus> 0.35 ) { %>
                     <p class="text-yellow-500 text-3xl">Mixed: <%= consensus.toFixed(2) %></p>
-                  <% } else if (consensus <=0.30 && consensus>= 0) { %>
+                  <% } else if (consensus <=0.35 && consensus>= 0) { %>
                     <p class="text-red-500 text-3xl">Low: <%= consensus.toFixed(2) %></p>
                   <% } else { %>
                     <p class="text-3xl text-gray-500">Unclear</p>
